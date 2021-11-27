@@ -9,6 +9,22 @@ const app = express()
 const url = 'https://fantasy.nfl.com/research/projections?position=O&sort=projectedPts&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=12'
 
 axios(url)
+    .then(response => {
+        const html = response.data
+        const $ = cheerio.load(html)
+        const projections = []
+
+        $('.playerNameAndInfo'),html).each(function(){
+            const name = $(this).find('.playerName').text()
+            const points = $(this).find('.playerWeekProjectedPts').text()
+            projections.push({
+                name,
+                points
+
+            })
+        })
+        
+    })
 
 
 app.listen(PORT, () => console.log(`server running on PORT ${PORT}`))
