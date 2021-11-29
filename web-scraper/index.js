@@ -14,7 +14,7 @@ axios(url)
         const $ = cheerio.load(html)
         const projections = []
 
-        $('.playerNameAndInfo'),html).each(function(){
+        $('tr',html).each(function(){
             const name = $(this).find('.playerName').text()
             const points = $(this).find('.playerWeekProjectedPts').text()
             projections.push({
@@ -23,8 +23,9 @@ axios(url)
 
             })
         })
+        console.log(projections)
         
-    })
+    }).catch(err => console.log(err))
 
 
 app.listen(PORT, () => console.log(`server running on PORT ${PORT}`))
